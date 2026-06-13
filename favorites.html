@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Her Vibe ❤️</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet" />
+<style>
+*, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+
+:root {
+  --rose:    #e8789a;
+  --blush:   #f2afc5;
+  --violet:  #9b59b6;
+  --deep:    #2d0a3a;
+  --midnight:#12001c;
+  --glass-bg: rgba(255,255,255,0.04);
+  --glass-border: rgba(255,255,255,0.1);
+  --nav-h: 68px;
+}
+
+html { scroll-behavior: smooth; }
+body {
+  min-height: 100vh;
+  background: var(--midnight);
+  font-family: 'Montserrat', sans-serif;
+  color: #fff;
+  overflow-x: hidden;
+}
+
+::-webkit-scrollbar { width: 5px; }
+::-webkit-scrollbar-thumb { background: rgba(232,120,154,0.4); border-radius: 10px; }
+
+/* ═══ NAV ═══ */
+nav {
+  position: fixed; top: 0; left: 0; right: 0;
+  height: var(--nav-h);
+  z-index: 9999;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0 2.5rem;
+  background: rgba(18,0,28,0.55);
+  backdrop-filter: blur(24px) saturate(180%);
+  border-bottom: 1px solid rgba(232,120,154,0.18);
+  box-shadow: 0 4px 40px rgba(0,0,0,0.4);
+}
+.nav-logo {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.5rem; font-style: italic; font-weight: 300;
+  background: linear-gradient(135deg, var(--blush), var(--violet));
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+}
+.nav-links { display: flex; gap: 0.25rem; list-style: none; }
+.nav-links a {
+  display: block; padding: 0.45rem 1rem;
+  font-size: 0.72rem; font-weight: 500; letter-spacing: 0.2em; text-transform: uppercase;
+  color: rgba(255,255,255,0.6); text-decoration: none; border-radius: 30px;
+  transition: color 0.3s, background 0.3s;
+}
+.nav-links a:hover, .nav-links a.active { color: #fff; background: rgba(232,120,154,0.18); }
+.nav-links a.active { color: var(--blush); }
+
+#music-btn {
+  width: 40px; height: 40px; border-radius: 50%;
+  border: 1px solid rgba(232,120,154,0.4);
+  background: rgba(232,120,154,0.1); backdrop-filter: blur(10px);
+  color: var(--blush); font-size: 1.1rem; cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  transition: box-shadow 0.3s, background 0.3s; flex-shrink: 0;
+}
+#music-btn:hover { box-shadow: 0 0 20px rgba(232,120,154,0.5); background: rgba(232,120,154,0.2); }
+#music-btn.playing { animation: musicPulse 1.5s ease-in-out infinite; }
+@keyframes musicPulse { 0%,100%{box-shadow:0 0 12px rgba(232,120,154,0.4)} 50%{box-shadow:0 0 28px rgba(232,120,154,0.8)} }
+
+/* ═══ BACKGROUND ═══ */
+.blob { position: fixed; border-radius: 50%; filter: blur(90px); z-index: 0; pointer-events: none; }
+.blob-1 { width: 600px; height: 600px; top: -200px; left: -200px; background: radial-gradient(circle, rgba(232,120,154,0.12) 0%, transparent 70%); }
+.blob-2 { width: 500px; height: 500px; bottom: -100px; right: -100px; background: radial-gradient(circle, rgba(155,89,182,0.14) 0%, transparent 70%); }
+.blob-3 { width: 400px; height: 400px; top: 50%; left: 50%; transform: translate(-50%,-50%); background: radial-gradient(circle, rgba(232,120,154,0.07) 0%, transparent 70%); }
+
+/* ═══ CONTENT ═══ */
+.page { padding-top: calc(var(--nav-h) + 3rem); padding-bottom: 5rem; position: relative; z-index: 1; }
+.container { max-width: 980px; margin: 0 auto; padding: 0 1.5rem; }
+
+.section-label { font-size: 0.7rem; font-weight: 500; letter-spacing: 0.35em; text-transform: uppercase; color: var(--rose); margin-bottom: 0.75rem; }
+.section-heading {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(2rem, 5vw, 3.2rem); font-weight: 300; font-style: italic;
+  line-height: 1.2;
+  background: linear-gradient(135deg, #fff 40%, var(--blush));
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+  margin-bottom: 3rem;
+}
+
+/* ═══ MEDIA GRID ═══ */
+.media-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+}
+
+/* ── Glass card base ── */
+.glass-card {
+  background: var(--glass-bg);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border: 1px solid var(--glass-border);
+  border-radius: 24px;
+  overflow: hidden;
+  box-shadow: 0 8px 40px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.07);
+  transition: transform 0.4s ease, box-shadow 0.4s ease;
+}
+.glass-card:hover { transform: translateY(-6px); box-shadow: 0 20px 60px rgba(0,0,0,0.5), 0 0 30px rgba(232,120,154,0.15); }
+
+/* ── Card header ── */
+.card-header {
+  padding: 1.5rem 1.5rem 0;
+  display: flex; align-items: center; gap: 0.75rem;
+}
+.card-icon {
+  width: 38px; height: 38px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.1rem;
+}
+.card-icon.music-icon { background: linear-gradient(135deg, rgba(232,120,154,0.3), rgba(155,89,182,0.3)); }
+.card-icon.video-icon { background: linear-gradient(135deg, rgba(155,89,182,0.3), rgba(232,120,154,0.3)); }
+
+.card-title-group { flex: 1; }
+.card-tag { font-size: 0.62rem; letter-spacing: 0.25em; text-transform: uppercase; color: rgba(255,255,255,0.4); margin-bottom: 2px; }
+.card-title { font-size: 0.9rem; font-weight: 500; color: rgba(255,255,255,0.9); }
+
+/* ═══════════════
+   MUSIC CARD
+═══════════════ */
+.music-card { padding-bottom: 1.5rem; }
+
+.album-section {
+  display: flex; align-items: center; gap: 1.5rem;
+  padding: 1.5rem;
+}
+
+.album-art-wrap {
+  position: relative;
+  flex-shrink: 0;
+  width: 100px; height: 100px;
+}
+.album-art {
+  width: 100%; height: 100%;
+  border-radius: 50%;
+  object-fit: cover;
+  animation: spinAlbum 12s linear infinite paused;
+  box-shadow: 0 0 20px rgba(232,120,154,0.5), 0 0 50px rgba(155,89,182,0.25);
+  border: 2px solid rgba(232,120,154,0.4);
+}
+.album-art.spinning { animation-play-state: running; }
+
+/* Vinyl center dot */
+.album-art-wrap::after {
+  content: '';
+  position: absolute; top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  width: 12px; height: 12px;
+  border-radius: 50%;
+  background: var(--midnight);
+  border: 2px solid rgba(232,120,154,0.5);
+  z-index: 2;
+}
+
+@keyframes spinAlbum { from{transform:rotate(0deg)} to{transform:rotate(360deg)} }
+
+.song-info { flex: 1; min-width: 0; }
+.song-title { font-size: 1rem; font-weight: 500; color: #fff; margin-bottom: 4px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.song-artist { font-size: 0.8rem; color: rgba(255,255,255,0.5); margin-bottom: 1rem; }
+
+/* Equalizer bars */
+.eq-bars {
+  display: flex; align-items: flex-end; gap: 3px; height: 28px;
+}
+.bar {
+  width: 4px; border-radius: 2px;
+  background: linear-gradient(to top, var(--rose), var(--violet));
+  animation: eq 0.8s ease-in-out infinite alternate;
+  transform-origin: bottom;
+}
+.bar:nth-child(1) { animation-duration: 0.6s; }
+.bar:nth-child(2) { animation-duration: 0.8s; animation-delay: 0.1s; }
+.bar:nth-child(3) { animation-duration: 0.5s; animation-delay: 0.2s; }
+.bar:nth-child(4) { animation-duration: 0.9s; animation-delay: 0.05s; }
+.bar:nth-child(5) { animation-duration: 0.7s; animation-delay: 0.15s; }
+.bar:nth-child(6) { animation-duration: 0.55s; animation-delay: 0.3s; }
+.bar:nth-child(7) { animation-duration: 0.85s; animation-delay: 0.08s; }
+
+@keyframes eq {
+  from { height: 4px; }
+  to   { height: 24px; }
+}
+
+/* Spotify embed wrapper */
+.spotify-wrap {
+  padding: 0 1.5rem;
+  border-radius: 16px;
+  overflow: hidden;
+}
+.spotify-wrap iframe {
+  width: 100%;
+  border-radius: 12px;
+  border: none;
+  display: block;
+}
+
+/* ═══════════════
+   VIDEO CARD
+═══════════════ */
+.video-card {}
+
+.video-wrap {
+  position: relative;
+  margin: 1.5rem;
+  border-radius: 16px;
+  overflow: hidden;
+  aspect-ratio: 16/9;
+  background: #0e0018;
+  box-shadow: 0 4px 30px rgba(0,0,0,0.5);
+}
+.video-wrap iframe {
+  width: 100%; height: 100%;
+  border: none; display: block;
+}
+/* Neon border on video */
+.video-wrap::after {
+  content: '';
+  position: absolute; inset: 0;
+  border-radius: 16px;
+  box-shadow: inset 0 0 0 1px rgba(155,89,182,0.4);
+  pointer-events: none;
+}
+
+.video-meta {
+  padding: 0 1.5rem 1.5rem;
+}
+.video-desc {
+  font-size: 0.82rem;
+  color: rgba(255,255,255,0.5);
+  line-height: 1.6;
+  font-style: italic;
+}
+
+/* ═══ MOOD TAG ROW ═══ */
+.mood-row {
+  margin-top: 3rem;
+  display: flex; flex-wrap: wrap; gap: 0.75rem; justify-content: center;
+}
+.mood-tag {
+  padding: 0.45rem 1.2rem;
+  border-radius: 30px;
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  border: 1px solid rgba(232,120,154,0.25);
+  background: rgba(232,120,154,0.08);
+  color: rgba(255,255,255,0.65);
+  transition: all 0.3s;
+  cursor: default;
+}
+.mood-tag:hover { background: rgba(232,120,154,0.2); color: #fff; border-color: rgba(232,120,154,0.5); transform: translateY(-2px); }
+
+/* ═══ RESPONSIVE ═══ */
+@media(max-width: 720px) {
+  .media-grid { grid-template-columns: 1fr; }
+  nav { padding: 0 1rem; }
+  .nav-links a { padding: 0.4rem 0.6rem; font-size: 0.65rem; }
+}
+</style>
+</head>
+<body>
+
+<div class="blob blob-1"></div>
+<div class="blob blob-2"></div>
+<div class="blob blob-3"></div>
+
+<!-- ══ NAV ══ -->
+<nav>
+  <div class="nav-logo">Her World ❤️</div>
+  <ul class="nav-links">
+    <li><a href="home.html">Our Story</a></li>
+    <li><a href="favorites.html" class="active">Her Vibe</a></li>
+    <li><a href="memories.html">Our Journey</a></li>
+    <li><a href="letter.html">Love Letter</a></li>
+  </ul>
+  <button id="music-btn" title="Toggle music">♪</button>
+</nav>
+
+<div class="page">
+  <div class="container">
+
+    <p class="section-label">Her Vibe</p>
+    <h1 class="section-heading">The things that<br/>make her, her.</h1>
+
+    <div class="media-grid">
+
+      <!-- ── MUSIC CARD ── -->
+      <div class="glass-card music-card">
+        <div class="card-header">
+          <div class="card-icon music-icon">🎵</div>
+          <div class="card-title-group">
+            <div class="card-tag">Favorite Song</div>
+            <div class="card-title" id="cardSongTitle">Loading…</div>
+          </div>
+        </div>
+
+        <div class="album-section">
+          <div class="album-art-wrap">
+            <img id="albumArt" class="album-art" src="" alt="Album art" />
+          </div>
+          <div class="song-info">
+            <div class="song-title" id="songTitle">Song Title</div>
+            <div class="song-artist" id="songArtist">Artist Name</div>
+            <div class="eq-bars">
+              <div class="bar"></div><div class="bar"></div><div class="bar"></div>
+              <div class="bar"></div><div class="bar"></div><div class="bar"></div>
+              <div class="bar"></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="spotify-wrap">
+          <iframe id="spotifyEmbed"
+            src=""
+            height="80"
+            allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+            loading="lazy">
+          </iframe>
+        </div>
+      </div>
+
+      <!-- ── VIDEO CARD ── -->
+      <div class="glass-card video-card">
+        <div class="card-header">
+          <div class="card-icon video-icon">🎬</div>
+          <div class="card-title-group">
+            <div class="card-tag">Cringe illa</div>
+            <div class="card-title" id="cardVideoTitle">Loading…</div>
+          </div>
+        </div>
+
+        <div class="video-wrap">
+          <video
+  autoplay
+  controls
+  playsinline
+  style="
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    border-radius:16px;
+  "
+>
+  <source src="assets/videos/orulife.mp4" type="video/mp4">
+</video>
+        </div>
+
+        <div class="video-meta">
+          <p class="video-desc" id="videoDesc">inthe life unoda enaku venum...</p>
+        </div>
+      </div>
+
+    </div><!-- /media-grid -->
+
+    <!-- Mood tags -->
+    <div class="mood-row" id="moodRow"></div>
+
+  </div>
+</div>
+
+<audio id="bgMusic" loop>
+  <source src="assets/music/perfect.mp3" type="audio/mpeg" />
+</audio>
+
+<script>
+// ══════════════════════════════════════════
+//  CONFIG — edit freely
+// ══════════════════════════════════════════
+const CONFIG = {
+  // ── Music ──
+  song: {
+    title:       'Dedicate to you',
+    artist:      'love',
+    albumArtUrl:'images/5.jpeg',
+    // Spotify embed URI — format: spotify:track:TRACKID or embed URL
+    // Get from Spotify → Share → Embed → copy the src URL
+    spotifySrc: 'https://open.spotify.com/embed/track/5XbHpOBN1vTU3hN1YzLqHL',
+  },
+
+  // ── Video ──
+  video: {
+    title:      'Our Life',
+    // YouTube embed URL: replace VIDEO_ID with the YouTube video ID
+    youtubeSrc: 'https://www.youtube.com/embed/H39jXirzubM?start=146&autoplay=1',
+    description: 'this life intha valkatha unkoda enaku venum',
+  },
+
+  // ── Mood tags ──
+  moodTags: ['🌸 Romantic', '🎶 Musical soul', '✨ Dreamer', '🌙 Night owl', '🌿 Nature lover', '🎨 Creative', '💫 Magical', '🕯️ Cozy vibes'],
+
+  // Background music (ambient)
+  musicSrc: 'assets/music/perfect.mp3',
+};
+// ══════════════════════════════════════════
+
+/* Apply config */
+document.getElementById('cardSongTitle').textContent = CONFIG.song.title;
+document.getElementById('songTitle').textContent     = CONFIG.song.title;
+document.getElementById('songArtist').textContent    = CONFIG.song.artist;
+document.getElementById('albumArt').src              = CONFIG.song.albumArtUrl;
+document.getElementById('albumArt').alt              = CONFIG.song.title;
+document.getElementById('spotifyEmbed').src          = CONFIG.song.spotifySrc;
+document.getElementById('cardVideoTitle').textContent = CONFIG.video.title;
+document.getElementById('ytEmbed').src               = CONFIG.video.youtubeSrc;
+document.getElementById('videoDesc').textContent     = CONFIG.video.description;
+
+/* Mood tags */
+const moodRow = document.getElementById('moodRow');
+CONFIG.moodTags.forEach(tag => {
+  const el = document.createElement('div');
+  el.className = 'mood-tag';
+  el.textContent = tag;
+  moodRow.appendChild(el);
+});
+
+/* Album spin on hover */
+const albumArt = document.getElementById('albumArt');
+albumArt.addEventListener('mouseenter', () => albumArt.classList.add('spinning'));
+albumArt.addEventListener('mouseleave', () => albumArt.classList.remove('spinning'));
+
+/* Music */
+const music = document.getElementById('bgMusic');
+const btn = document.getElementById('music-btn');
+
+music.volume = 0.5;
+
+window.addEventListener('load', () => {
+    music.play()
+    .then(() => {
+        btn.classList.add('playing');
+        btn.textContent = '♬';
+    })
+    .catch(() => {
+        console.log("Autoplay blocked");
+    });
+});
+
+document.addEventListener('click', () => {
+    if (music.paused) {
+        music.play();
+        btn.classList.add('playing');
+        btn.textContent = '♬';
+    }
+}, { once: true });
+
+btn.addEventListener('click', (e) => {
+    e.stopPropagation();
+
+    if (music.paused) {
+        music.play();
+        btn.classList.add('playing');
+        btn.textContent = '♬';
+    } else {
+        music.pause();
+        btn.classList.remove('playing');
+        btn.textContent = '♪';
+    }
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>For Someone Special ❤️</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet" />
+<style>
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --rose:    #e8789a;
+    --blush:   #f2afc5;
+    --violet:  #9b59b6;
+    --deep:    #2d0a3a;
+    --midnight:#12001c;
+    --glow:    rgba(232,120,154,0.55);
+  }
+
+  html, body {
+    width: 100%; height: 100%;
+    overflow: hidden;
+    font-family: 'Montserrat', sans-serif;
+    background: var(--midnight);
+  }
+
+  /* ── Canvas ── */
+  #bg { position: fixed; inset: 0; z-index: 0; }
+
+  /* ── Centre card ── */
+  .stage {
+    position: relative; z-index: 10;
+    height: 100vh;
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    gap: 2rem;
+    text-align: center;
+    padding: 2rem;
+  }
+
+  .monogram {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(3.5rem, 9vw, 7rem);
+    font-weight: 300;
+    font-style: italic;
+    background: linear-gradient(135deg, var(--blush), var(--violet), var(--rose));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    filter: drop-shadow(0 0 28px rgba(232,120,154,0.6));
+    letter-spacing: 0.05em;
+    line-height: 1.1;
+    animation: fadeSlideDown 1.4s cubic-bezier(.22,1,.36,1) both;
+  }
+
+  .tagline {
+    font-size: clamp(0.85rem, 2.2vw, 1.1rem);
+    font-weight: 300;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.55);
+    animation: fadeSlideDown 1.4s 0.3s cubic-bezier(.22,1,.36,1) both;
+  }
+
+  .heart-divider {
+    color: var(--rose);
+    font-size: 1.5rem;
+    animation: pulse 2.2s ease-in-out infinite, fadeSlideDown 1.4s 0.5s cubic-bezier(.22,1,.36,1) both;
+  }
+
+  .headline {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(1.1rem, 3vw, 1.7rem);
+    font-weight: 300;
+    color: rgba(255,255,255,0.88);
+    max-width: 520px;
+    line-height: 1.7;
+    letter-spacing: 0.03em;
+    animation: fadeSlideDown 1.4s 0.7s cubic-bezier(.22,1,.36,1) both;
+  }
+
+  /* ── CTA Button ── */
+  .enter-btn {
+    position: relative;
+    margin-top: 1rem;
+    padding: 1rem 3rem;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.85rem;
+    font-weight: 500;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: #fff;
+    text-decoration: none;
+    border: 1px solid rgba(232,120,154,0.5);
+    border-radius: 60px;
+    background: rgba(232,120,154,0.12);
+    backdrop-filter: blur(12px);
+    cursor: pointer;
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    animation: fadeSlideDown 1.4s 1s cubic-bezier(.22,1,.36,1) both;
+  }
+
+  .enter-btn::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: linear-gradient(135deg, rgba(232,120,154,0.35), rgba(155,89,182,0.35));
+    opacity: 0;
+    transition: opacity 0.35s ease;
+    border-radius: inherit;
+  }
+
+  .enter-btn:hover { transform: translateY(-3px); box-shadow: 0 0 40px var(--glow), 0 0 80px rgba(155,89,182,0.3); }
+  .enter-btn:hover::before { opacity: 1; }
+
+  .btn-glow {
+    position: absolute; inset: -2px;
+    border-radius: inherit;
+    background: conic-gradient(from 0deg, var(--rose), var(--violet), var(--blush), var(--rose));
+    z-index: -1;
+    animation: spin 4s linear infinite;
+    filter: blur(6px);
+    opacity: 0.6;
+  }
+
+  .btn-inner { position: relative; z-index: 1; }
+
+  /* ── Keyframes ── */
+  @keyframes fadeSlideDown { from { opacity:0; transform:translateY(-22px); } to { opacity:1; transform:translateY(0); } }
+  @keyframes pulse { 0%,100%{transform:scale(1)} 50%{transform:scale(1.25)} }
+  @keyframes spin { from{transform:rotate(0deg)} to{transform:rotate(360deg)} }
+</style>
+</head>
+<body>
+
+<canvas id="bg"></canvas>
+
+<div class="stage">
+  <p class="tagline">A Love Letter in Digital</p>
+  <div class="monogram">For Someone<br/>Very Special</div>
+  <div class="heart-divider">❤️</div>
+  <p class="headline">This page was created for someone whose smile rewrites the meaning of beautiful.</p>
+  <a href="home.html" class="enter-btn">
+    <span class="btn-glow"></span>
+    <span class="btn-inner">Enter Her World</span>
+  </a>
+</div>
+
+<script>
+// ══════════════════════════════════════════
+//  CONFIG — edit freely
+// ══════════════════════════════════════════
+const CONFIG = {
+  particleCount: 120,
+  heartCount: 18,
+  bgColors: ['#12001c','#1a0028','#0e0018'],
+};
+// ══════════════════════════════════════════
+
+const canvas = document.getElementById('bg');
+const ctx = canvas.getContext('2d');
+
+let W, H, particles = [], hearts = [];
+
+function resize() {
+  W = canvas.width = window.innerWidth;
+  H = canvas.height = window.innerHeight;
+}
+resize();
+window.addEventListener('resize', () => { resize(); init(); });
+
+class Particle {
+  constructor() { this.reset(true); }
+  reset(initial) {
+    this.x = Math.random() * W;
+    this.y = initial ? Math.random() * H : H + 10;
+    this.r = Math.random() * 1.8 + 0.4;
+    this.vx = (Math.random() - 0.5) * 0.4;
+    this.vy = -(Math.random() * 0.5 + 0.2);
+    this.alpha = Math.random() * 0.7 + 0.2;
+    this.fade = Math.random() * 0.004 + 0.001;
+    const palette = ['#e8789a','#f2afc5','#9b59b6','#c98ae0','#ffffff'];
+    this.color = palette[Math.floor(Math.random() * palette.length)];
+  }
+  update() {
+    this.x += this.vx; this.y += this.vy;
+    this.alpha -= this.fade;
+    if (this.alpha <= 0 || this.y < -10) this.reset(false);
+  }
+  draw() {
+    ctx.beginPath();
+    ctx.arc(this.x, this.y, this.r, 0, Math.PI * 2);
+    ctx.fillStyle = this.color;
+    ctx.globalAlpha = this.alpha;
+    ctx.fill();
+    ctx.globalAlpha = 1;
+  }
+}
+
+function heartPath(ctx, x, y, size) {
+  ctx.save(); ctx.translate(x, y); ctx.scale(size, size);
+  ctx.beginPath();
+  ctx.moveTo(0, -0.25);
+  ctx.bezierCurveTo(0, -0.5, -0.5, -0.5, -0.5, -0.1);
+  ctx.bezierCurveTo(-0.5, 0.2, 0, 0.5, 0, 0.5);
+  ctx.bezierCurveTo(0, 0.5, 0.5, 0.2, 0.5, -0.1);
+  ctx.bezierCurveTo(0.5, -0.5, 0, -0.5, 0, -0.25);
+  ctx.closePath();
+  ctx.restore();
+}
+
+class FloatHeart {
+  constructor() { this.reset(true); }
+  reset(initial) {
+    this.x = Math.random() * W;
+    this.y = initial ? Math.random() * H : H + 60;
+    this.size = Math.random() * 22 + 8;
+    this.vy = -(Math.random() * 0.6 + 0.2);
+    this.vx = (Math.random() - 0.5) * 0.3;
+    this.alpha = Math.random() * 0.25 + 0.05;
+    this.rot = Math.random() * Math.PI * 2;
+    this.rotSpeed = (Math.random() - 0.5) * 0.012;
+    this.sway = Math.random() * 0.8;
+    this.swayOff = Math.random() * 100;
+  }
+  update(t) {
+    this.x += this.vx + Math.sin(t * 0.001 + this.swayOff) * this.sway * 0.05;
+    this.y += this.vy;
+    this.rot += this.rotSpeed;
+    if (this.y < -80) this.reset(false);
+  }
+  draw() {
+    ctx.save();
+    ctx.globalAlpha = this.alpha;
+    ctx.translate(this.x, this.y);
+    ctx.rotate(this.rot);
+    heartPath(ctx, 0, 0, this.size);
+    const g = ctx.createRadialGradient(0, 0, 0, 0, 0, this.size * 0.6);
+    g.addColorStop(0, '#f2afc5');
+    g.addColorStop(1, '#9b59b6');
+    ctx.fillStyle = g;
+    ctx.fill();
+    ctx.restore();
+    ctx.globalAlpha = 1;
+  }
+}
+
+function drawGradient() {
+  const g = ctx.createRadialGradient(W * 0.4, H * 0.4, 0, W * 0.5, H * 0.5, Math.max(W, H) * 0.85);
+  g.addColorStop(0, '#2d0a3a');
+  g.addColorStop(0.5, '#1a0028');
+  g.addColorStop(1, '#0c0014');
+  ctx.fillStyle = g;
+  ctx.fillRect(0, 0, W, H);
+
+  // Accent blobs
+  [
+    [W * 0.2, H * 0.3, W * 0.35, 'rgba(232,120,154,0.06)'],
+    [W * 0.8, H * 0.7, W * 0.3, 'rgba(155,89,182,0.07)'],
+  ].forEach(([cx, cy, r, color]) => {
+    const b = ctx.createRadialGradient(cx, cy, 0, cx, cy, r);
+    b.addColorStop(0, color); b.addColorStop(1, 'transparent');
+    ctx.fillStyle = b; ctx.fillRect(0, 0, W, H);
+  });
+}
+
+function init() {
+  particles = Array.from({ length: CONFIG.particleCount }, () => new Particle());
+  hearts    = Array.from({ length: CONFIG.heartCount },    () => new FloatHeart());
+}
+init();
+
+let raf;
+function loop(t) {
+  ctx.clearRect(0, 0, W, H);
+  drawGradient();
+  hearts.forEach(h => { h.update(t); h.draw(); });
+  particles.forEach(p => { p.update(); p.draw(); });
+  raf = requestAnimationFrame(loop);
+}
+loop(0);
+</script>
+</body>
+</html>

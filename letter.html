@@ -1,0 +1,537 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Love Letter ❤️</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Montserrat:wght@300;400;500&family=Dancing+Script:wght@400;600&display=swap" rel="stylesheet" />
+<style>
+*, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+
+:root {
+  --rose:    #e8789a;
+  --blush:   #f2afc5;
+  --violet:  #9b59b6;
+  --deep:    #2d0a3a;
+  --midnight:#12001c;
+  --glass-bg: rgba(255,255,255,0.04);
+  --glass-border: rgba(255,255,255,0.1);
+  --nav-h: 68px;
+}
+
+html { scroll-behavior: smooth; }
+body {
+  min-height: 100vh;
+  background: var(--midnight);
+  font-family: 'Montserrat', sans-serif;
+  color: #fff;
+  overflow-x: hidden;
+}
+::-webkit-scrollbar { width: 5px; }
+::-webkit-scrollbar-thumb { background: rgba(232,120,154,0.4); border-radius: 10px; }
+
+/* ═══ NAV ═══ */
+nav {
+  position: fixed; top: 0; left: 0; right: 0;
+  height: var(--nav-h); z-index: 9999;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0 2.5rem;
+  background: rgba(18,0,28,0.55);
+  backdrop-filter: blur(24px) saturate(180%);
+  border-bottom: 1px solid rgba(232,120,154,0.18);
+  box-shadow: 0 4px 40px rgba(0,0,0,0.4);
+}
+.nav-logo {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.5rem; font-style: italic; font-weight: 300;
+  background: linear-gradient(135deg, var(--blush), var(--violet));
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+}
+.nav-links { display: flex; gap: 0.25rem; list-style: none; }
+.nav-links a {
+  display: block; padding: 0.45rem 1rem;
+  font-size: 0.72rem; font-weight: 500; letter-spacing: 0.2em; text-transform: uppercase;
+  color: rgba(255,255,255,0.6); text-decoration: none; border-radius: 30px;
+  transition: color 0.3s, background 0.3s;
+}
+.nav-links a:hover, .nav-links a.active { color: #fff; background: rgba(232,120,154,0.18); }
+.nav-links a.active { color: var(--blush); }
+#music-btn {
+  width: 40px; height: 40px; border-radius: 50%;
+  border: 1px solid rgba(232,120,154,0.4); background: rgba(232,120,154,0.1);
+  backdrop-filter: blur(10px); color: var(--blush); font-size: 1.1rem; cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  transition: box-shadow 0.3s; flex-shrink: 0;
+}
+#music-btn:hover { box-shadow: 0 0 20px rgba(232,120,154,0.5); }
+#music-btn.playing { animation: musicPulse 1.5s ease-in-out infinite; }
+@keyframes musicPulse { 0%,100%{box-shadow:0 0 12px rgba(232,120,154,0.4)} 50%{box-shadow:0 0 28px rgba(232,120,154,0.8)} }
+
+/* ═══ BACKGROUND ═══ */
+.blob { position: fixed; border-radius: 50%; filter: blur(90px); z-index: 0; pointer-events: none; }
+.blob-1 { width: 600px; height: 600px; top: -200px; left: -200px; background: radial-gradient(circle, rgba(232,120,154,0.12) 0%, transparent 70%); }
+.blob-2 { width: 500px; height: 500px; bottom: -100px; right: -100px; background: radial-gradient(circle, rgba(155,89,182,0.14) 0%, transparent 70%); }
+
+/* ═══ PAGE ═══ */
+.page { padding-top: calc(var(--nav-h) + 3rem); padding-bottom: 6rem; position: relative; z-index: 1; }
+.container { max-width: 720px; margin: 0 auto; padding: 0 1.5rem; }
+
+.section-label { font-size: 0.7rem; font-weight: 500; letter-spacing: 0.35em; text-transform: uppercase; color: var(--rose); margin-bottom: 0.75rem; }
+.section-heading {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(2rem, 5vw, 3.2rem); font-weight: 300; font-style: italic; line-height: 1.2;
+  background: linear-gradient(135deg, #fff 40%, var(--blush));
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+  margin-bottom: 3rem;
+}
+
+/* ══════════════════
+   ENVELOPE
+══════════════════ */
+.envelope-stage {
+  display: flex; flex-direction: column; align-items: center;
+  margin-bottom: 3rem;
+}
+
+.envelope {
+  position: relative;
+  width: 320px; height: 230px;
+  cursor: pointer;
+  margin-bottom: 1.5rem;
+  filter: drop-shadow(0 10px 40px rgba(232,120,154,0.3));
+  transition: transform 0.4s ease;
+}
+.envelope:hover { transform: scale(1.04); }
+.envelope.opened { pointer-events: none; }
+
+/* Body */
+.env-body {
+  position: absolute; inset: 0;
+  background: linear-gradient(160deg, rgba(45,10,58,0.95), rgba(20,0,32,0.95));
+  border: 1px solid rgba(232,120,154,0.35);
+  border-radius: 4px 4px 12px 12px;
+  overflow: hidden;
+}
+.env-body::before {
+  content: '';
+  position: absolute; bottom: 0; left: 0; right: 0;
+  height: 60%;
+  background: linear-gradient(to top, rgba(232,120,154,0.06), transparent);
+}
+
+/* Back V fold */
+.env-back {
+  position: absolute; inset: 0;
+  clip-path: polygon(0 100%, 50% 42%, 100% 100%);
+  background: linear-gradient(to top, rgba(232,120,154,0.25), rgba(155,89,182,0.15));
+}
+
+/* Left triangle */
+.env-left {
+  position: absolute; inset: 0;
+  clip-path: polygon(0 0, 0 100%, 50% 42%);
+  background: linear-gradient(135deg, rgba(45,10,58,0.9), rgba(30,0,45,0.9));
+  border-right: 1px solid rgba(232,120,154,0.15);
+}
+
+/* Right triangle */
+.env-right {
+  position: absolute; inset: 0;
+  clip-path: polygon(100% 0, 100% 100%, 50% 42%);
+  background: linear-gradient(225deg, rgba(45,10,58,0.9), rgba(30,0,45,0.9));
+  border-left: 1px solid rgba(232,120,154,0.15);
+}
+
+/* Flap (top triangle) — animated */
+.env-flap {
+  position: absolute; top: 0; left: 0; right: 0;
+  height: 50%;
+  transform-origin: top center;
+  transition: transform 0.9s cubic-bezier(0.22, 1, 0.36, 1);
+  z-index: 5;
+}
+
+.env-flap-inner {
+  width: 100%; height: 100%;
+  clip-path: polygon(0 0, 100% 0, 50% 100%);
+  background: linear-gradient(160deg, rgba(45,10,58,0.98), rgba(155,89,182,0.2));
+  border-bottom: 1px solid rgba(232,120,154,0.3);
+}
+
+.envelope.opened .env-flap {
+  transform: rotateX(180deg);
+}
+
+/* Wax seal */
+.wax-seal {
+  position: absolute; bottom: 30px; left: 50%; transform: translateX(-50%);
+  width: 52px; height: 52px; border-radius: 50%;
+  background: radial-gradient(circle, #e8789a 0%, #9b59b6 70%);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.3rem;
+  box-shadow: 0 0 20px rgba(232,120,154,0.6);
+  z-index: 6;
+  transition: opacity 0.4s, transform 0.4s;
+}
+.envelope.opened .wax-seal { opacity: 0; transform: translateX(-50%) scale(0); }
+
+/* Open hint */
+.open-hint {
+  font-size: 0.72rem; letter-spacing: 0.25em; text-transform: uppercase;
+  color: rgba(255,255,255,0.4); animation: hintPulse 2s ease-in-out infinite;
+  transition: opacity 0.5s;
+}
+.envelope.opened ~ .open-hint { opacity: 0; pointer-events: none; }
+@keyframes hintPulse { 0%,100%{opacity:0.4} 50%{opacity:0.9} }
+
+/* ══════════════════
+   LETTER
+══════════════════ */
+.letter-wrapper {
+  opacity: 0;
+  transform: translateY(40px);
+  transition: opacity 1s ease 0.5s, transform 1s ease 0.5s;
+  pointer-events: none;
+}
+.letter-wrapper.revealed { opacity: 1; transform: translateY(0); pointer-events: all; }
+
+.letter-paper {
+  background: linear-gradient(160deg, rgba(255,255,255,0.05) 0%, rgba(232,120,154,0.03) 100%);
+  backdrop-filter: blur(24px);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 24px;
+  padding: 3.5rem 3.5rem 3rem;
+  box-shadow: 0 16px 60px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.07);
+  position: relative;
+  overflow: hidden;
+}
+
+/* Paper texture lines */
+.letter-paper::before {
+  content: '';
+  position: absolute; inset: 0;
+  background: repeating-linear-gradient(
+    transparent,
+    transparent 28px,
+    rgba(232,120,154,0.04) 28px,
+    rgba(232,120,154,0.04) 29px
+  );
+  border-radius: 24px;
+  pointer-events: none;
+}
+
+.letter-date {
+  font-size: 0.75rem; letter-spacing: 0.25em; text-transform: uppercase;
+  color: rgba(255,255,255,0.35); margin-bottom: 2rem;
+}
+
+.letter-greeting {
+  font-family: 'Dancing Script', cursive;
+  font-size: clamp(1.6rem, 4vw, 2.4rem);
+  color: var(--blush);
+  margin-bottom: 2rem;
+}
+
+.letter-body {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(1rem, 2.2vw, 1.2rem);
+  font-weight: 300;
+  line-height: 2;
+  color: rgba(255,255,255,0.82);
+}
+
+.letter-body p { margin-bottom: 1.5rem; }
+.letter-body p:last-child { margin-bottom: 0; }
+
+.letter-sign {
+  margin-top: 3rem;
+  text-align: right;
+}
+.letter-sign-top { font-family: 'Cormorant Garamond', serif; font-style: italic; color: rgba(255,255,255,0.5); font-size: 0.95rem; }
+.letter-signature {
+  font-family: 'Dancing Script', cursive;
+  font-size: 2.2rem;
+  color: var(--rose);
+  filter: drop-shadow(0 0 12px rgba(232,120,154,0.4));
+}
+
+/* Floating petals */
+.petal {
+  position: fixed;
+  font-size: 1.2rem;
+  pointer-events: none;
+  z-index: 999;
+  animation: petalFall linear forwards;
+  opacity: 0;
+}
+@keyframes petalFall {
+  0%   { opacity: 0.9; transform: translateY(-30px) rotate(0deg); }
+  100% { opacity: 0; transform: translateY(110vh) rotate(720deg); }
+}
+
+/* CTA row */
+.cta-row {
+  display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;
+  margin-top: 3rem;
+}
+.cta-btn {
+  padding: 0.85rem 2.2rem;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 0.78rem; font-weight: 500; letter-spacing: 0.2em; text-transform: uppercase;
+  color: #fff; text-decoration: none; border-radius: 40px; cursor: pointer;
+  transition: transform 0.3s, box-shadow 0.3s;
+  display: inline-block;
+}
+.cta-btn.primary {
+  background: linear-gradient(135deg, rgba(232,120,154,0.4), rgba(155,89,182,0.4));
+  border: 1px solid rgba(232,120,154,0.5);
+}
+.cta-btn.secondary {
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.12);
+}
+.cta-btn:hover { transform: translateY(-3px); box-shadow: 0 8px 30px rgba(232,120,154,0.3); }
+.love-message{
+  margin-top:30px;
+  text-align:center;
+
+  font-family:'Dancing Script', cursive;
+  font-size:3rem;
+
+  color:#e8789a;
+
+  opacity:0;
+  transform:translateY(20px);
+
+  text-shadow:
+    0 0 10px rgba(232,120,154,0.5),
+    0 0 20px rgba(232,120,154,0.5);
+
+  transition:all 1.5s ease;
+}
+
+.love-message.show{
+  opacity:1;
+  transform:translateY(0);
+  animation:loveGlow 2s infinite alternate;
+}
+
+@keyframes loveGlow{
+  from{
+    text-shadow:
+      0 0 10px rgba(232,120,154,0.5),
+      0 0 20px rgba(232,120,154,0.5);
+  }
+
+  to{
+    text-shadow:
+      0 0 20px rgba(232,120,154,0.9),
+      0 0 40px rgba(232,120,154,0.9);
+  }
+}
+
+@media(max-width:600px) {
+  nav { padding: 0 1rem; }
+  .nav-links a { padding: 0.4rem 0.6rem; font-size: 0.65rem; }
+  .letter-paper { padding: 2rem 1.5rem; }
+  .envelope { width: 260px; height: 190px; }
+}
+</style>
+</head>
+<body>
+
+<div class="blob blob-1"></div>
+<div class="blob blob-2"></div>
+
+<!-- ══ NAV ══ -->
+<nav>
+  <div class="nav-logo">Her World ❤️</div>
+  <ul class="nav-links">
+    <li><a href="home.html">Our Story</a></li>
+    <li><a href="favorites.html">Her Vibe</a></li>
+    <li><a href="memories.html">Our Journey</a></li>
+    <li><a href="letter.html" class="active">Love Letter</a></li>
+  </ul>
+  <button id="music-btn" title="Toggle music">♪</button>
+</nav>
+
+<div class="page">
+  <div class="container">
+
+    <p class="section-label">Love Letter</p>
+    <h1 class="section-heading">Words I have been<br/>waiting to say.</h1>
+
+    <!-- Envelope -->
+    <div class="envelope-stage">
+      <div class="envelope" id="envelope" title="Click to open">
+        <div class="env-body"></div>
+        <div class="env-back"></div>
+        <div class="env-left"></div>
+        <div class="env-right"></div>
+        <div class="env-flap"><div class="env-flap-inner"></div></div>
+        <div class="wax-seal">💌</div>
+      </div>
+      <p class="open-hint" id="openHint">— click to open —</p>
+    </div>
+
+    <!-- Letter (revealed on open) -->
+    <div class="letter-wrapper" id="letterWrapper">
+      <div class="letter-paper">
+        <div class="letter-date" id="letterDate">Loading date…</div>
+        <div class="letter-greeting" id="letterGreeting">Loading…</div>
+        <div class="letter-body" id="letterBody">
+          <!-- Paragraphs injected by JS -->
+        </div>
+        <div class="letter-sign">
+          <p class="letter-sign-top">With everything I have,</p>
+          <p class="letter-signature" id="letterSignature">Your Admirer</p>
+        </div>
+        <div id="loveMessage" class="love-message">
+          Among billions of people,
+my favorite is still you.And finaly..
+I Love You Subanya ❤️
+        </div>
+      </div>
+
+      <div class="cta-row">
+        <a href="home.html" class="cta-btn primary">← Back to Our Story</a>
+        <a href="index.html" class="cta-btn secondary">Return to the Beginning</a>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<audio id="bgMusic" loop>
+  <source src="assets/music/let.mpeg" type="audio/mpeg" />
+</audio>
+
+<script>
+// ══════════════════════════════════════════
+//  CONFIG — edit freely
+// ══════════════════════════════════════════
+const CONFIG = {
+  // Recipient's name
+  recipientName: 'Subanya 🐱',
+
+  // Your signature / name
+  senderName: 'Aathi',
+
+  // Letter paragraphs (each becomes a <p>)
+  paragraphs: [
+ "unna pathi yosikaama oru naalum pogala.",
+ "Un smile enaku romba pidikum antha morachi papala athu romba pidikum.",
+ "Un kooda pesura ovvoru nimishamum special ah irukum.",
+ "And finally naa itha solliey aganum"
+  ],
+
+  // Optional: petal burst on open (set false to disable)
+  showPetals: true,
+
+  musicSrc: '',
+};
+// ══════════════════════════════════════════
+
+/* Apply config */
+const now = new Date();
+document.getElementById('letterDate').textContent =
+  now.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+document.getElementById('letterGreeting').textContent = CONFIG.recipientName + ',';
+document.getElementById('letterSignature').textContent = CONFIG.senderName;
+
+const bodyEl = document.getElementById('letterBody');
+CONFIG.paragraphs.forEach(p => {
+  const el = document.createElement('p');
+  el.textContent = p;
+  bodyEl.appendChild(el);
+});
+
+/* Envelope open */
+const envelope   = document.getElementById('envelope');
+const openHint   = document.getElementById('openHint');
+const letterWrap = document.getElementById('letterWrapper');
+
+function spawnPetals() {
+  const petals = ['🌸', '🌹', '💗', '✨', '🌷', '💫'];
+  for (let i = 0; i < 22; i++) {
+    setTimeout(() => {
+      const p = document.createElement('div');
+      p.className = 'petal';
+      p.textContent = petals[Math.floor(Math.random() * petals.length)];
+      p.style.left = Math.random() * 100 + 'vw';
+      p.style.top = '-40px';
+      p.style.fontSize = (0.8 + Math.random() * 1.4) + 'rem';
+      const dur = 3 + Math.random() * 4;
+      p.style.animationDuration = dur + 's';
+      document.body.appendChild(p);
+      setTimeout(() => p.remove(), dur * 1000);
+    }, i * 80);
+  }
+}
+
+let opened = false;
+envelope.addEventListener('click', () => {
+  if (opened) return;
+  opened = true;
+  envelope.classList.add('opened');
+  openHint.style.opacity = '0';
+
+  if (CONFIG.showPetals) spawnPetals();
+
+  setTimeout(() => {
+  letterWrap.classList.add('revealed');
+  letterWrap.scrollIntoView({
+    behavior:'smooth',
+    block:'start'
+  });
+
+  setTimeout(() => {
+    document
+      .getElementById('loveMessage')
+      .classList.add('show');
+  }, 1500);
+
+}, 800);
+});
+
+/* Music */
+const music = document.getElementById('bgMusic');
+const btn = document.getElementById('music-btn');
+
+music.volume = 0.5;
+
+window.addEventListener('load', () => {
+    music.play()
+    .then(() => {
+        btn.classList.add('playing');
+        btn.textContent = '♬';
+    })
+    .catch(() => {
+        console.log("Autoplay blocked");
+    });
+});
+
+document.addEventListener('click', () => {
+    if (music.paused) {
+        music.play();
+        btn.classList.add('playing');
+        btn.textContent = '♬';
+    }
+}, { once: true });
+
+btn.addEventListener('click', (e) => {
+    e.stopPropagation();
+
+    if (music.paused) {
+        music.play();
+        btn.classList.add('playing');
+        btn.textContent = '♬';
+    } else {
+        music.pause();
+        btn.classList.remove('playing');
+        btn.textContent = '♪';
+    }
+});
+</script>
+</body>
+</html>
