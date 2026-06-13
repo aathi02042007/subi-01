@@ -211,7 +211,34 @@ nav {
   display: block; margin-bottom: 4px;
 }
 .stat-label { font-size: 0.72rem; letter-spacing: 0.2em; text-transform: uppercase; color: rgba(255,255,255,0.45); }
+.next-section{
+  text-align:center;
+  margin:60px 0;
+}
 
+.next-btn{
+  display:inline-block;
+  padding:15px 35px;
+  border-radius:50px;
+
+  text-decoration:none;
+  color:white;
+
+  background:linear-gradient(
+    135deg,
+    #e8789a,
+    #9b59b6
+  );
+
+  box-shadow:0 0 20px rgba(232,120,154,.5);
+
+  transition:.4s;
+}
+
+.next-btn:hover{
+  transform:translateY(-5px);
+  box-shadow:0 0 40px rgba(232,120,154,.8);
+}
 @media(max-width:600px) {
   nav { padding: 0 1rem; }
   .nav-links a { padding: 0.4rem 0.6rem; font-size: 0.65rem; }
@@ -254,7 +281,11 @@ nav {
 
   </div>
 </div>
-
+<div class="next-section">
+  <a href="letter.html" class="next-btn">
+    One Last Letter 💌 →
+  </a>
+</div>
 <audio id="bgMusic" loop>
   <source src="assets/music/perfect.mp3" type="audio/mpeg" />
 </audio>
